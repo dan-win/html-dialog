@@ -1,0 +1,24 @@
+{
+  "name": "html-dialog",
+  "version": "0.0.9",
+  "description": "Modal dialog based on bootstrap.css",
+  "main": "index.js",
+  "scripts": {
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dan-win/html-dialog.git"
+  },
+  "keywords": [
+    "dialog, html, bootstrap"
+  ],
+  "author": "D Zimoglyadov",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/dan-win/html-dialog/issues"
+  },
+  "homepage": "https://github.com/dan-win/html-dialog#readme",
+  "dependencies": {
+    "jquery": "^1.11.3"
+  }
+}
