@@ -1,5 +1,5 @@
 /**
- * Boostrap-based dialog (only Bootstrap's CSS used, w/o plugins), based on promises.
+ * Modal dialog with buffer for data (Bootstrap's CSS used, w/o plugins), based on promises.
  * Dmitry Zimoglyadov. 2016
  * License: Apache 2.0
  */
@@ -93,7 +93,7 @@ if (typeof Promise === 'undefined') {
 		}
 
 		/**
-		 * Hide dialog and clear related DOM
+		 * Hide dialog and clear related DOM. Returns Promise<buffer>
 		 * @method close
 		 * @return {[type]} [description]
 		 */
@@ -101,6 +101,23 @@ if (typeof Promise === 'undefined') {
 			// finalize dialog:
 			if (result && self.buffer)
 				result = self._pickData();
+			self._resolve(result)
+			self._hideInterior();
+			// clear instance :
+			console.log('close called')
+
+			// Clear references
+			self._resolve = null;
+			self._reject = null;
+		}
+
+		/**
+		 * Hide dialog and clear related DOM. Returns Promise<result>
+		 * @method close
+		 * @return {[type]} [description]
+		 */
+		self.selectResult = function (result) {
+			// finalize dialog:
 			self._resolve(result)
 			self._hideInterior();
 			// clear instance :
@@ -123,6 +140,12 @@ if (typeof Promise === 'undefined') {
 						.addClass('modal-backdrop fade in'));
 
 			$('#'+self.instanceId)
+				.on('click.dialog.window', '[data-dialog-result]',
+					function (evt) {
+						var result = evt.target.getAttribute('data-dialog-result')
+						self.selectResult(result);
+						return false
+					})
 				.on('click.dialog.window', '[data-dialog-control="Ok"]',
 					function (evt) {self.close(true); return false}
 					)
